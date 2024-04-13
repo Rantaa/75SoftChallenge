@@ -6,7 +6,6 @@ from models import Contact, Day
 @app.route("/create_user", methods=["POST"])
 def create_user():
     user = "VovLo"
-    day_number = 0
     proper_meals = False
     exercised = False
     water_count = False
@@ -22,11 +21,6 @@ def create_user():
         return jsonify({"message": str(e)}), 400
 
     return jsonify({"message": "User created!"}), 201
-    
-    
-    # users = Day.query.filter_by(user="VovLo").all()
-    # db.session.delete(users[0])
-    # db.session.commit()
 
 @app.route("/get_user", methods=["GET"])
 def get_user():
@@ -54,15 +48,8 @@ def get_user_day(day):
 def update_user_day(day):
     user = "VovLo"
     user_day = Day.query.filter_by(user=user, day_number=day).first()
-    # user_day = Day.query.filter_by(id=1).first()
-    # json_user_day = list(map(lambda x: x.to_json(), user_day))
     
     data = request.json
-    
-    print(f"{'This is the data':#^150}")
-    print(data)
-    print(f"{'This is the user_day':#^150}")
-    print(user_day)
     
     user_day.user = data.get("user", user_day.user)
     user_day.day_number = data.get("dayNumber", user_day.day_number)
@@ -75,63 +62,6 @@ def update_user_day(day):
     db.session.commit()
 
     return jsonify({"message": "Day updated"}), 200
-    
-    
-
-
-@app.route("/contacts", methods=["GET"])
-def get_contacts():
-    contacts = Contact.query.all()
-    json_contacts = list(map(lambda x: x.to_json(), contacts))
-    return jsonify({"contacts": json_contacts})
-
-@app.route("/create_contact", methods=["POST"])
-def create_contact():
-    first_name = request.json.get("firstName")
-    last_name = request.json.get("lastName")
-    email = request.json.get("email")
-
-    if not first_name or not last_name or not email:
-        return (
-            jsonify({"message": "You must include a first name, last name and email"}), 
-            400,)
-    new_contact = Contact(first_name=first_name, last_name=last_name, email=email)
-    try:
-        db.session.add(new_contact)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
-    
-    return jsonify({"message": "User created!"}), 201
-
-@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
-def update_contact(user_id):
-    contact = Contact.query.get(user_id)
-
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-    
-    data = request.json
-    contact.first_name = data.get("firstName", contact.first_name)
-    contact.last_nane = data.get("lastName", contact.last_name)
-    contact.email = data.get("email", contact.email)
-
-    db.session.commit()
-
-    return jsonify({"message": "User updated"}), 200
-
-@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
-def delete_contact(user_id):
-    contact = Contact.query.get(user_id)
-
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-    
-    db.session.delete(contact)
-    db.session.commit()
-
-    return jsonify({"message": "User deleted!"}), 200
-
         
 
 if __name__ == '__main__':

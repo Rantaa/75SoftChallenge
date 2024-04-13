@@ -9,7 +9,7 @@ const ContactList = ({ contacts, dayColors, updateDay, updateCallback }) => {
 
 
         <div className="last-week">
-        <h3>Week 11</h3>{[...Array(5)].map((e, i) => <div type="button" key={70 + i} id={70 + i + 1} className="btn grey" onClick={() => updateDay(70 + i + 1)}>Day {70 + i + 1}</div>)}
+        <h3>Week 11</h3>{[...Array(5)].map((e, i) => <div type="button" key={70 + i} id={70 + i + 1} className={"btn " + `${dayColors[70 + i]}`} onClick={() => updateDay(70 + i + 1)}>Day {70 + i + 1}</div>)}
         </div>
 
 
