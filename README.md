@@ -4,8 +4,9 @@ This is a web app I made for fun, for me and my friends to track our achievement
 
 For each day, one checks of the challenges completed that day and depending on how many that are left unchecked each box changes color accordingly.
 
-![screenshot](screenshots/screenshot0.jpg)
-![screenshot](screenshots/screenshot1.jpg)
+<!-- ![screenshot](screenshots/screenshot0.jpg)
+![screenshot](screenshots/screenshot1.jpg) -->
+![demo](demo.gif)
 
 Future enhancements:
 - Implement leader board
