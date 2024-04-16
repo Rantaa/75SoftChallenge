@@ -10,6 +10,6 @@ For each day, one checks off the challenges completed and each box changes color
 
 Future enhancements:
 - Implement leader board
-- Implement user authentication
+- ~~Implement user authentication~~ WIP
 - Enable different start dates
 - Enable creating new users
