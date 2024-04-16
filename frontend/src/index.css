@@ -86,6 +86,17 @@ h3 {
   margin-left: 3px;
 }
 
+.logout-div {
+  width: 100%;
+}
+
+.logout-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+
 
 
 

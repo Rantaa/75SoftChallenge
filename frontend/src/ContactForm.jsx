@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-const ContactForm = ({currentDay, existingContact = {}, updateCallback}) => {
-    const [properMeals, setProperMeals] = useState(existingContact.properMeals || false)
-    const [exercised, setExercised] = useState(existingContact.exercised || false)
-    const [waterCount, setWaterCount] = useState(existingContact.waterCount || false)
-    const [stepCount, setStepCount] = useState(existingContact.stepCount || false)
-    const [read, setRead] = useState(existingContact.read || false)
+const ContactForm = ({currentDay, currentUserDay = {}, updateCallback}) => {
+    const [properMeals, setProperMeals] = useState(currentUserDay.properMeals || false)
+    const [exercised, setExercised] = useState(currentUserDay.exercised || false)
+    const [waterCount, setWaterCount] = useState(currentUserDay.waterCount || false)
+    const [stepCount, setStepCount] = useState(currentUserDay.stepCount || false)
+    const [read, setRead] = useState(currentUserDay.read || false)
     const user = "VovLo"
 
     const dayNumber = currentDay

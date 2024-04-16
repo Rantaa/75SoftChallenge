@@ -1,11 +1,76 @@
-from flask import request, jsonify
+from flask import request, jsonify, session
+from flask_bcrypt import Bcrypt
+from flask_session import Session
 from config import app, db
-from models import Contact, Day
+from models import User, Day
+
+bcrypt = Bcrypt(app)
+server_session = Session(app)
+
+@app.route("/@me")
+def get_current_user():
+    user_id = session.get("user_id")
+    
+    if not user_id:
+        return jsonify({"error": "Unauthorized"})
+    
+    user = User.query.filter_by(id=user_id).first()
+    return jsonify({
+        "id": user.id,
+        "username": user.user_name
+    })
+    
+@app.route("/register", methods=["POST"])
+def register_user():
+    user_name = request.json["userName"]
+    password = request.json["password"]
+    
+    user_exists = User.query.filter_by(user_name=user_name).first() is not None
+    
+    if user_exists:
+        return jsonify({"error": "User already exists"}), 409
+    
+    hashed_password = bcrypt.generate_password_hash(password)
+    new_user = User(user_name=user_name, password=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return jsonify({
+        "id": new_user.id,
+        "username": new_user.user_name
+    })
+    
+    
+@app.route("/login", methods=["POST"])
+def login_user():
+    user_name = request.json["userName"]
+    password = request.json["password"]
+    
+    user = User.query.filter_by(user_name=user_name).first()
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Unauthorized"})
+    
+    session["user_id"] = user.id
+    
+    return jsonify({
+        "id": user.id,
+        "username": user.user_name
+    })
+    
+@app.route("/logout", methods=["POST"])
+def logout_user():
+    session.pop("user_id")
+    return "200"
 
 
-@app.route("/create_user", methods=["POST"])
+
+@app.route("/create_user_days", methods=["POST"])
 def create_user():
-    user = "VovLo"
+    user = request.json["userName"]
     proper_meals = False
     exercised = False
     water_count = False

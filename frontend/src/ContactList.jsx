@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-const ContactList = ({ contacts, dayColors, updateDay, updateCallback }) => {
+const ContactList = ({ dayColors, updateDay, updateCallback }) => {
 
     const today = new Date().getTime();
     const startDay = new Date('April 10, 2024 00:00:00').getTime();
