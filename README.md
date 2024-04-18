@@ -12,4 +12,4 @@ Future enhancements:
 - Implement leader board
 - ~~Implement user authentication~~ WIP
 - Enable different start dates
-- Enable creating new users
+[x] Enable creating new users - Done
