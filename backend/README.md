@@ -28,3 +28,17 @@ And, finally run the below command to generate the `requirements.txt` file.
 ```bash
 pipreqs --ignore venv-app --print
 ```
+
+## How to start with docker compose
+
+You can simply start the backend with `docker-compose` by running below command.
+
+```bash
+docker compose up --build
+```
+
+![demo](./assets/demo.gif)
+
+## How to stop docker containers
+
+Press `ctrl+c` to stop the running containers gracefully.
