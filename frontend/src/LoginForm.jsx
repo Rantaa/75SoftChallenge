@@ -22,11 +22,14 @@ const ContactForm = ({updateCallback}) => {
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify(data)
         }
         const response = await fetch(url, options)
         if (response.status === 401) {
             alert("Unvalid credentials")
+        } else if (response.status !== 201) {
+            alert("Something went wrong") 
         } else {
             updateCallback(userName)
         }

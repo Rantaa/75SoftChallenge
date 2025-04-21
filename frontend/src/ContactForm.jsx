@@ -32,6 +32,7 @@ const ContactForm = ({currentDay, currentUserDay = {}, updateCallback}) => {
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify(data)
         }
         const response = await fetch(url, options)

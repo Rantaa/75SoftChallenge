@@ -122,6 +122,7 @@ h3 {
 .update {
   margin-top: 30px;
   border: 2px solid #242424;
+  cursor:'pointer'
 }
 
 .red {

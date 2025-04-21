@@ -1,11 +1,11 @@
-from flask import request, jsonify, session
+from flask import request, jsonify, session, make_response
 from flask_bcrypt import Bcrypt
 from flask_session import Session
 from config import app, db
 from models import User, Day
 
 bcrypt = Bcrypt(app)
-server_session = Session(app)
+Session(app)
 
 @app.route("/@me")
 def get_current_user():
@@ -52,18 +52,32 @@ def login_user():
         return jsonify({"error": "Unauthorized"}), 401
     
     if not bcrypt.check_password_hash(user.password, password):
-        return jsonify({"error": "Unauthorized"})
+        return jsonify({"error": "Unauthorized"}), 401
     
     session["user_id"] = user.id
     
     return jsonify({
         "id": user.id,
         "username": user.user_name
-    })
+    }), 201, 
+    
+    # {"Access-Control-Allow-Origin": "*"}
+    
+    # response = make_response(jsonify({
+    #     "id": user.id,
+    #     "username": user.user_name
+    # }))
+    # response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4173'
+    # response.headers['Access-Control-Allow-Credentials'] = 'true'
+    # return response, 201
     
 @app.route("/logout", methods=["POST"])
 def logout_user():
     session.pop("user_id")
+    # response = make_response("200")
+    # response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4173'
+    # response.headers['Access-Control-Allow-Credentials'] = 'true'
+    # return response
     return "200"
 
 

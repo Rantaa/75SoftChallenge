@@ -19,7 +19,10 @@ function App() {
 
   const fetchUserDay = async (day) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/get_user_day/" + `${day}`)
+      const response = await fetch("http://127.0.0.1:5000/get_user_day/" + `${day}`, {
+        method: "GET",
+        credentials: "include"
+      })
       const data = await response.json()
       console.log("This is data from fetchUserDay")
       console.log(data)
@@ -35,7 +38,10 @@ function App() {
   }, [])
 
   const fetchScorePerDay = async () => {
-    const response = await fetch("http://127.0.0.1:5000/get_score_per_day")
+    const response = await fetch("http://127.0.0.1:5000/get_score_per_day", {
+      method: "GET",
+      credentials: "include"
+    })
     const data = await response.json()
     console.log("This is scorePerDay")
     console.log(data.score_per_day)
